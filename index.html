@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ravens of Doom MC – Garage & Customs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050608;
+      --accent: #18ff00;
+      --text: #f4f4f4;
+      --muted: #a0a0a0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #202020 0, #050506 50%, #000 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    body.rock-mode {
+      background: radial-gradient(circle at center, #222 0, #050505 40%, #000 100%);
+      animation: bgPulse 6s infinite alternate;
+    }
+    @keyframes bgPulse {
+      from { filter: brightness(1); }
+      to { filter: brightness(1.25); }
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0.85));
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      backdrop-filter: blur(8px);
+    }
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .logo-wrap img {
+      width: 54px;
+      height: 54px;
+      border-radius: 999px;
+      object-fit: cover;
+      box-shadow: 0 0 20px rgba(24,255,0,0.8);
+    }
+    .logo-text {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.8rem;
+    }
+    .logo-text span {
+      display: block;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      font-weight: 800;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      position: relative;
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.15rem;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.2s ease-out;
+    }
+    nav a:hover::after { width: 100%; }
+    .rock-btn {
+      margin-left: 0.5rem;
+      padding: 0.55rem 1.3rem;
+      border-radius: 999px;
+      border: 1px solid var(--accent);
+      background: transparent;
+      color: var(--accent);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+    }
+    body.rock-mode .rock-btn {
+      background: var(--accent);
+      color: #000;
+      box-shadow: 0 0 18px rgba(24,255,0,0.8);
+    }
+    .section {
+      padding: 3.5rem 7vw;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: linear-gradient(to bottom, rgba(0,0,0,0.96), rgba(0,0,0,0.98));
+    }
+    .section h2 {
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.8rem;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .section h3 {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    .section p {
+      color: var(--muted);
+      max-width: 860px;
+      line-height: 1.6;
+      font-size: 0.96rem;
+      margin-bottom: 0.75rem;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0,1.3fr) minmax(0,1.5fr);
+      gap: 2rem;
+      align-items: center;
+    }
+    .hero-sub {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      margin-bottom: 1rem;
+    }
+    .hero-title span {
+      display: block;
+      color: var(--accent);
+    }
+    .hero-buttons {
+      margin-top: 1.3rem;
+      display: flex;
+      gap: 0.9rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary, .btn-ghost {
+      border-radius: 999px;
+      padding: 0.8rem 1.7rem;
+      border: 1px solid var(--accent);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+    }
+    .btn-ghost {
+      color: var(--accent);
+      background: transparent;
+    }
+    .hero-img {
+      position: relative;
+      border-radius: 1.4rem;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.9);
+    }
+    .hero-img img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .hero-img::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent 40%);
+    }
+    .hero-tag {
+      position: absolute;
+      left: 1rem;
+      bottom: 1rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .workshop-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.3fr) minmax(0,1.4fr);
+      gap: 2rem;
+    }
+    .workshop-photos {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 0.8rem;
+    }
+    .workshop-photos img {
+      width: 100%;
+      border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      object-fit: cover;
+    }
+    .bikes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px,1fr));
+      gap: 1.5rem;
+      margin-top: 1.6rem;
+    }
+    .bike-card {
+      background: radial-gradient(circle at top, rgba(24,255,0,0.16), rgba(0,0,0,0.96));
+      border-radius: 1.3rem;
+      padding: 1rem 1rem 1.2rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.9);
+    }
+    .bike-card h4 {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.86rem;
+      margin-bottom: 0.25rem;
+    }
+    .bike-tag {
+      font-size: 0.75rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+    }
+    .bike-thumb {
+      margin-top: 0.7rem;
+      border-radius: 0.9rem;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.22);
+    }
+    .bike-thumb img {
+      width: 100%;
+      height: 155px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.25s ease-out;
+    }
+    .bike-card:hover .bike-thumb img {
+      transform: scale(1.05);
+    }
+    .bike-desc {
+      margin-top: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .crew-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.2fr) minmax(0,1.4fr);
+      gap: 2rem;
+      margin-top: 1.5rem;
+    }
+    .crew-photos {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 0.8rem;
+    }
+    .crew-photos img {
+      width: 100%;
+      border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.14);
+      object-fit: cover;
+    }
+    .clubhouse-img {
+      margin-top: 1.3rem;
+      border-radius: 1.2rem;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .clubhouse-img img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+    .impressum {
+      font-size: 0.86rem;
+      color: var(--muted);
+      max-width: 700px;
+    }
+    .impressum strong { color: var(--text); }
+    footer {
+      padding: 1.5rem 7vw 2.3rem;
+      font-size: 0.78rem;
+      text-align: center;
+      color: #777;
+      background: #020305;
+    }
+    @media (max-width: 960px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.7rem;
+      }
+      nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .hero,
+      .workshop-grid,
+      .crew-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .section { padding: 3rem 1.5rem; }
+      header { padding: 0.8rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <audio id="bg-music" loop src="media/rod-rockmode.mp3"></audio>
+
+  <header>
+    <div class="logo-wrap">
+      <img src="img/logo-ravens.png" alt="Ravens of Doom Logo" />
+      <div class="logo-text">
+        Ravens of Doom
+        <span>MC • Garage & Customs</span>
+      </div>
+    </div>
+    <nav>
+      <a href="#werkstatt">Werkstatt</a>
+      <a href="#bikes">Bikes</a>
+      <a href="#crew">Crew</a>
+      <a href="#impressum">Impressum</a>
+      <button id="rock-btn" class="rock-btn"><span id="rock-label">Rock Mode</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section hero" id="top">
+      <div>
+        <div class="hero-sub">
+          Independent Motorcycle Garage • Blaine County
+        </div>
+        <h1 class="hero-title">
+          <span>Ravens of Doom</span>
+          Garage & Customs
+        </h1>
+        <p>
+          Schwarzer Stahl, kaltes Neon, warmes Werkzeug – wir sind die Halle,
+          in der aus Motorrädern Geschichten werden. Offiziell: freie
+          Motorradwerkstatt mit Schwerpunkt Customizing. Inoffiziell: der Ort,
+          an dem man hinkommt, wenn man keine Lust auf Standard hat.
+        </p>
+        <p>
+          Wir schrauben, lackieren, tunen und richten Bikes her, bis sie
+          genau zu dem passen, der drauf sitzt. Bar, Rechnung, diskrete
+          Sonderwünsche – alles bekommt seinen Platz. Aber nicht alles
+          bekommt Papier.
+        </p>
+        <div class="hero-buttons">
+          <a href="#werkstatt" class="btn-primary">
+            <span>⚙</span> Werkstatt ansehen
+          </a>
+          <a href="#bikes" class="btn-ghost">
+            <span>➜</span> Unsere Builds
+          </a>
+        </div>
+      </div>
+      <div class="hero-img">
+        <img src="img/base-clubhouse.png" alt="Ravens of Doom Gelände bei Nacht" />
+        <div class="hero-tag">Home of Ravens of Doom</div>
+      </div>
+    </section>
+
+    <section class="section" id="werkstatt">
+      <div class="workshop-grid">
+        <div>
+          <h2>Die Halle</h2>
+          <h3>Ravens of Doom Werkstatt</h3>
+          <p>
+            Von außen wirkt es wie irgendein Industriegelände am Rand der
+            Stadt – von innen ist es unser Revier: Bühnen, Schweißplätze,
+            Werkzeugwagen, Teilelager und ein Büro, in dem mehr Kaffee als
+            Papierkram liegt.
+          </p>
+          <p>
+            Hier entstehen unsere Builds: von komplett zerlegten Bikes bis
+            hin zu feinen Detailumbauten. Wer durch unsere Tore fährt, weiß:
+            Das hier ist kein steriler Showroom, sondern eine echte
+            Schrauberhalle mit Clubseele.
+          </p>
+          <p>
+            Normale Aufträge gehen sauber über den Tresen. Projekte, bei
+            denen es um mehr geht als nur neuen Lack, besprechen wir unter
+            vier Augen – und zahlen sie, wie es auf der Straße üblich ist.
+          </p>
+        </div>
+        <div class="workshop-photos">
+          <img src="img/garage-interior.png" alt="Werkstatt Innenansicht" />
+          <div>
+            <img src="img/bike-workshop-chopper.png" alt="Custom Chopper in der Halle" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="bikes">
+      <h2>Builds</h2>
+      <h3>Vier Bikes – vier Ansagen</h3>
+      <p>
+        Kein Vorher/Nachher, keine halben Sachen – was hier steht, ist fertig
+        auf die Straße vorbereitet. Jeder Build hat seine eigene Geschichte
+        und seinen Platz im Rudel.
+      </p>
+
+      <div class="bikes-grid">
+        <article class="bike-card">
+          <h4>Night Stalker</h4>
+          <div class="bike-tag">Low Chopper • Street Weapon</div>
+          <div class="bike-thumb">
+            <img src="img/bike-shadow-chopper.png" alt="Night Stalker Chopper" />
+          </div>
+          <p class="bike-desc">
+            Tiefergelegter Chopper für Nachtfahrten in der Stadt. Aufgeräumte
+            Linie, dunkle Optik, Fokus auf Sound und Drehmoment – gebaut, um
+            im Schatten zu fahren, nicht im Rampenlicht.
+          </p>
+        </article>
+
+        <article class="bike-card">
+          <h4>White Widow</h4>
+          <div class="bike-tag">Clean Bobber • Contrast Build</div>
+          <div class="bike-thumb">
+            <img src="img/bike-white-chopper.png" alt="White Widow Bike" />
+          </div>
+          <p class="bike-desc">
+            Cleaner Bobber mit weißem Setup, bei dem jedes Detail knallt.
+            Perfekt für alle, die auf den ersten Blick harmlos wirken wollen –
+            und auf den zweiten doch lieber Abstand kriegen.
+          </p>
+        </article>
+
+        <article class="bike-card">
+          <h4>Raven Bagger</h4>
+          <div class="bike-tag">Touring • Low & Long</div>
+          <div class="bike-thumb">
+            <img src="img/bike-bagger-green.png" alt="Raven Bagger" />
+          </div>
+          <p class="bike-desc">
+            Langer Bagger mit genug Platz für Gepäck, Tools und das, was
+            sonst nicht jeder sehen soll. Fahrbereit für lange Runs mit dem
+            Club – stilvoll, dunkel, kompromisslos.
+          </p>
+        </article>
+
+        <article class="bike-card">
+          <h4>Shop Special</h4>
+          <div class="bike-tag">One-Off • Signature Build</div>
+          <div class="bike-thumb">
+            <img src="img/bike-workshop-chopper.png" alt="Shop Special Custom" />
+          </div>
+          <p class="bike-desc">
+            Unser Werkstatt-Liebling: das Bike, an dem ständig etwas geändert,
+            getestet und verbessert wird. Wer hier anfragt, bekommt keinen
+            Katalogumbau, sondern ein echtes Einzelstück.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="crew">
+      <h2>Crew</h2>
+      <h3>Die Raben hinter den Westen</h3>
+      <div class="crew-grid">
+        <div>
+          <p>
+            Kein Laden ohne Leute, keine Garage ohne Club. Die Ravens of Doom
+            sind mehr als nur ein Patch – wir sind Familie, Chaos-Truppe und
+            eingespieltes Schrauberteam in einem.
+          </p>
+          <p>
+            Wer bei uns in der Halle arbeitet, trägt Verantwortung: für die
+            Bikes, für die Brüder und Schwestern und für das, was unter
+            unserem Namen auf die Straße geht. Respekt, Loyalität und ein
+            guter Sinn für Humor sind Pflicht.
+          </p>
+        </div>
+        <div class="crew-photos">
+          <img src="img/crew-president.png" alt="Ravens of Doom President" />
+          <img src="img/crew-family.png" alt="Ravens of Doom Family Shot" />
+        </div>
+      </div>
+
+      <div class="clubhouse-img">
+        <img src="img/base-clubhouse.png" alt="Clubgelände der Ravens of Doom" />
+      </div>
+    </section>
+
+    <section class="section" id="impressum">
+      <h2>Impressum</h2>
+      <h3>Ravens of Doom Garage</h3>
+      <div class="impressum">
+        <p>
+          <strong>Betreiber:</strong><br />
+          Devon Sullivan
+        </p>
+        <p>
+          <strong>Adresse:</strong><br />
+          Sheldon Avenue Nr. 6<br />
+          6042 Vinewood North
+        </p>
+        <p>
+          <strong>Hinweis:</strong><br />
+          Diese Seite stellt eine unabhängige Motorrad-Werkstatt und einen
+          Motorradclub in einer fiktiven Welt dar. Arbeiten und Umbauten
+          werden ausschließlich persönlich vor Ort besprochen. Keine Haftung
+          für Inhalte externer Links.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Ravens of Doom MC – Garage & Customs. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const rockBtn = document.getElementById("rock-btn");
+    const rockLabel = document.getElementById("rock-label");
+    const bgMusic = document.getElementById("bg-music");
+    let rockOn = false;
+
+    rockBtn.addEventListener("click", async () => {
+      rockOn = !rockOn;
+      document.body.classList.toggle("rock-mode", rockOn);
+      rockLabel.textContent = rockOn ? "Rock Mode: ON" : "Rock Mode";
+      if (bgMusic && bgMusic.src) {
+        try {
+          if (rockOn) {
+            await bgMusic.play();
+          } else {
+            bgMusic.pause();
+          }
+        } catch (e) {
+          console.warn("Musik konnte nicht automatisch gestartet werden:", e);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
